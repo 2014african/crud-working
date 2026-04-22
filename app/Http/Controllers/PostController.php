@@ -69,12 +69,12 @@ class PostController extends Controller
   public function statusUpdate(Request $request, Post $post)
 {
     $validated = $request->validate([
-        'status' => 'required|max:255',
+        'status' => 'required|in:archive,draft,publish|max:255',
     ]);
 
     $post->update($validated);
 
-    return redirect()->route('show', $post)->with('success', 'Status updated succesfully!');
+    return redirect()->route('index', $post)->with('success', 'Status updated succesfully!');
 }
 
 

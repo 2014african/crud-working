@@ -17,7 +17,7 @@
         @csrf
         @method('PUT')
 
-         Status: <select name="subject" id="subject">
+         Status: <select name="status" id="status">
             <option value="draft" selected="selected">Draft</option>
             <option value="publish" selected="selected">Published</option>
             <option value="archive" selected="selected">Archived</option>
@@ -26,6 +26,6 @@
         <!-- <label for="status">Status</label>
         <input type="text" id="status" name="status" value="{{ old('status', $post->status) }}" placeholder="Enter status"> -->
 
-        <!-- <input type="submit" value="Update status"> -->
+        <input type="submit" value="Update status">
     </form>
 </x-app-layout>
