@@ -7,80 +7,81 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+ 
+    public function index(Request $request)
     {
-        $posts = Post::all();
+        $limit = $request->get('limit');
+
+       if ($limit) {
+         $posts = Post::limit($limit)->get(); 
+        }
+        else {
+             $posts = Post::all(); 
+             }
         return view('posts.index', ['posts' => $posts]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        return view('posts.create');
+       return view('posts.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $data = [
-            'title' => $request->title,
-            'content' => $request->content
-        ];
 
-        Post::create($data);
+        $validated = $request->validate([
+            'title' => 'bail|required|unique:posts|max:255',
+            'content' => 'required'
+        ]);
 
-        return redirect('/posts');
+
+        Post::create($validated);
+
+        return redirect()->route('index')->with('success',  'Post created succesfully!');;
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        $post = Post::find($id);
-        return view('posts.show', ['post' => $post]);
-    }
+
+    public function show(Post $post)
+{
+    return view('posts.show', ['post' => $post]);
+}
     
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $post = Post::find($id);
         return view('posts.edit', ['post' => $post]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        $post = Post::find($id);
+         $validated = $request->validate([
+           'title' => 'bail|required|unique:posts,title,' . $post->id . '|max:255',
+            'content' => 'required'
+    ]);
+            
+        
 
-        $data = [
-            'title' => $request->title,
-            'content' => $request->content
-        ];
-
-        $post->update($data);
-
-        return redirect('/posts');
+        // $post->update($validated);
+        // return redirect()->route('show')->with('success',  'status updated succesfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
+  public function statusUpdate(Request $request, Post $post)
+{
+    $validated = $request->validate([
+        'status' => 'required|max:255',
+    ]);
+
+    $post->update($validated);
+
+    return redirect()->route('show', $post)->with('success', 'Status updated succesfully!');
+}
+
+
     public function destroy($id)
     {
         $post = Post::find($id);
         $post->delete();
-        return redirect('/posts');
+        return redirect()->route('index')->with('success',  'Post deleted succesfully!');
     }    
 }
