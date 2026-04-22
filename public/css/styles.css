@@ -1,0 +1,145 @@
+/* ===== Minimal WOW UI ===== */
+
+:root {
+    --bg: #0f172a;
+    --card: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.12);
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --accent: #7c3aed;
+    --accent2: #06b6d4;
+    --danger: #ef4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter, system-ui, sans-serif;
+    background: radial-gradient(circle at 20% 20%, #1e1b4b, #020617);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* Layout centering */
+body .py-12 {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 0 20px;
+}
+
+/* Heading */
+h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    background: linear-gradient(to right, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Card effect */
+form,
+li,
+body h1 + p {
+    background: var(--card);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 26px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+/* Inputs */
+input,
+textarea {
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 18px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.04);
+    color: white;
+    outline: none;
+    transition: 0.25s;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(124,58,237,0.4);
+}
+
+/* Buttons */
+input[type="submit"],
+button {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 30px rgba(124,58,237,0.5);
+}
+
+/* Posts list */
+ul {
+    list-style: none;
+    display: grid;
+    gap: 20px;
+}
+
+li {
+    transition: 0.3s;
+}
+
+li:hover {
+    transform: translateY(-5px) scale(1.01);
+}
+
+/* Links */
+a {
+    color: var(--accent2);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Actions */
+li div {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+li div form input[type="submit"] {
+    background: var(--danger);
+}
+
+li div form input[type="submit"]:hover {
+    box-shadow: 0 10px 25px rgba(239,68,68,0.4);
+}
+
+/* Paragraph */
+p {
+    color: var(--muted);
+    margin-bottom: 10px;
+}
+
+/* Small polish */
+::selection {
+    background: var(--accent);
+}

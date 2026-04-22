@@ -1,5 +1,25 @@
 <x-app-layout>
-    <a href="/posts">All posts</a>
-    <h1>Title: {{ $post->title }}</h1>
-    <p>Content: {{ $post->content }}</p>
+    <h1>{{ $post->title }}</h1>
+
+    <p>{{ $post->content }}</p>
+
+    <p><strong>Status:</strong> {{ $post->status }}</p>
+
+    @if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
+    <form action="{{ route('status.update', $post) }}" method="post">
+        @csrf
+        @method('PUT')
+
+        <label for="status">Status</label>
+        <input type="text" id="status" name="status" value="{{ old('status', $post->status) }}" placeholder="Enter status">
+
+        <input type="submit" value="Update status">
+    </form>
 </x-app-layout>
