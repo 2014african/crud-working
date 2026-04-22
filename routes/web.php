@@ -12,6 +12,12 @@ Route::get('/colors', function () {
 
     return view('colors', ['colors' => $colors]);
 });
+Route::get('/display/car', function () {
+    $car = Car::create(BMW, 6767, 1233123);
+    echo "<p>Marka: </p>";
+    echo "<p>Gads: </p>";
+    echo "<p>Nobraukums: </p>";
+});
 
 Route::put('posts/{post}/status', [PostController::class, 'statusUpdate'])->name('status.update');
 Route::view('/about', 'about.about')->name('about');
